@@ -39,6 +39,10 @@ export async function createEditCabin(newCabin, id) {
     }
 
     // 2. Upload image
+    // When we are duplicating, we do not need to upload an image so we 
+    // will return the data if the data has image path in it.
+    if (hasImagePath) return data;
+
     const { error: storageError } = await supabase.storage
         .from("cabin-images")
         .upload(imageName, newCabin.image);
