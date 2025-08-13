@@ -2,6 +2,7 @@ import { cloneElement, createContext, useContext, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";
 import { HiXMark } from "react-icons/hi2";
+import { useNonModalClick } from "../hooks/useNonModalClick";
 
 const StyledModal = styled.div`
   position: fixed;
@@ -77,6 +78,7 @@ function Open({ children, opens: openWindowName }) {
 
 function Window({ children, name }) {
   const { openName, close } = useContext(ModalContext);
+  const ref = useNonModalClick(close);
 
   if (name !== openName) return null;
 
@@ -84,7 +86,7 @@ function Window({ children, name }) {
   // without changing its position in the DOM tree.
   return createPortal(
     <Overlay>
-      <StyledModal>
+      <StyledModal ref={ref}>
         <Button onClick={close}>
           <HiXMark />
         </Button>
