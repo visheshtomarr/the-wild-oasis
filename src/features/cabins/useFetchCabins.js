@@ -11,5 +11,5 @@ export function useFetchCabins() {
         queryFn: getCabins,
     });
 
-    return { isLoading, cabins };
+    return { isLoading, cabins, error };
 }
